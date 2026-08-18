@@ -7,7 +7,7 @@ on:
       - "plugins/**"
       - ".claude-plugin/marketplace.json"
       - "scripts/build-index.mjs"
-      - "site/**"
+      - "browser/**"
   workflow_dispatch: {}
 
 permissions:
@@ -20,11 +20,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build-index:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -34,6 +31,56 @@ jobs:
 
       - name: Build search index
         run: node scripts/build-index.mjs
+
+      - name: Upload index artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-index
+          path: site/index.json
+
+  build-browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: browser/package-lock.json
+
+      - name: Install dependencies
+        working-directory: browser
+        run: npm ci
+
+      - name: Build browser app
+        working-directory: browser
+        run: npm run build
+
+      - name: Upload browser app artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-browser
+          path: site/browser/
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build-index, build-browser]
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download index artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-index
+          path: site/
+
+      - name: Download browser app artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-browser
+          path: site/browser/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
