@@ -1,10 +1,15 @@
 {
   "name": "sdd-engineering",
   "displayName": "Spec-Driven Development Engineering",
-  "description": "Spec-driven development workflow skills.",
-  "version": "0.1.0",
+  "description": "Spec-driven development pipeline: spec-creator, implementation-planner, implementer, and plan-verifier agents plus run-plan and workflow-retro skills.",
+  "version": "1.0.0",
   "author": {
     "name": "Andrii Bahrii"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": [
+    { "name": "engineering-paved-path", "version": "^1.0.0" },
+    { "name": "research-tools", "version": "^1.0.0" },
+    { "name": "architecture-review", "version": "^1.0.0" }
+  ]
 }

@@ -1,8 +1,8 @@
 {
   "name": "research-tools",
   "displayName": "Research Tools",
-  "description": "Skills for researching and summarizing external sources.",
-  "version": "0.1.0",
+  "description": "Read-only research agent for investigating a codebase, the web, or both.",
+  "version": "1.0.0",
   "author": {
     "name": "Andrii Bahrii"
   },
