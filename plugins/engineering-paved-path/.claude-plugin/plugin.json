@@ -1,0 +1,10 @@
+{
+  "name": "engineering-paved-path",
+  "displayName": "Engineering Paved Path",
+  "description": "Opinionated engineering workflow skills for the team's paved path.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Andrii Bahrii"
+  },
+  "license": "MIT"
+}

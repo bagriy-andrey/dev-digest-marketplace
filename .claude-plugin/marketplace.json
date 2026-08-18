@@ -1,0 +1,38 @@
+{
+  "$schema": "https://code.claude.com/schemas/marketplace.json",
+  "name": "dev-digest-marketplace",
+  "owner": {
+    "name": "Andrii Bahrii",
+    "email": "bagriy.andrey.ua@gmail.com"
+  },
+  "description": "Curated Claude Code plugins for the Dev Digest engineering workflow.",
+  "metadata": {
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "engineering-paved-path",
+      "source": "./plugins/engineering-paved-path",
+      "description": "Opinionated engineering workflow skills for the team's paved path.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "research-tools",
+      "source": "./plugins/research-tools",
+      "description": "Skills for researching and summarizing external sources.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "architecture-review",
+      "source": "./plugins/architecture-review",
+      "description": "Skills and agents for reviewing architecture and design docs.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "sdd-engineering",
+      "source": "./plugins/sdd-engineering",
+      "description": "Spec-driven development workflow skills.",
+      "version": "0.1.0"
+    }
+  ]
+}

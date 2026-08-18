@@ -1,0 +1,6 @@
+# Reviews on any change require the marketplace owner.
+# Releases (version bumps merged to main) are gated by the same owner.
+
+*                       @andriibahrii
+.claude-plugin/         @andriibahrii
+plugins/                @andriibahrii

@@ -1,0 +1,29 @@
+name: Site build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "plugins/**"
+      - ".claude-plugin/marketplace.json"
+      - "scripts/build-index.mjs"
+  workflow_dispatch: {}
+
+jobs:
+  build-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build search index
+        run: node scripts/build-index.mjs
+
+      - name: Upload site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: site/
