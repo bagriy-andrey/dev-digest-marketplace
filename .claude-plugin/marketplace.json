@@ -14,25 +14,25 @@
       "name": "engineering-paved-path",
       "source": "./plugins/engineering-paved-path",
       "description": "Opinionated engineering workflow skills for the team's paved path.",
-      "version": "0.1.0"
+      "version": "1.0.0"
     },
     {
       "name": "research-tools",
       "source": "./plugins/research-tools",
-      "description": "Skills for researching and summarizing external sources.",
-      "version": "0.1.0"
+      "description": "Read-only research agent for investigating a codebase, the web, or both.",
+      "version": "1.0.0"
     },
     {
       "name": "architecture-review",
       "source": "./plugins/architecture-review",
-      "description": "Skills and agents for reviewing architecture and design docs.",
-      "version": "0.1.0"
+      "description": "Read-only architecture reviewer agent for layering and package-boundary integrity.",
+      "version": "1.0.0"
     },
     {
       "name": "sdd-engineering",
       "source": "./plugins/sdd-engineering",
-      "description": "Spec-driven development workflow skills.",
-      "version": "0.1.0"
+      "description": "Spec-driven development pipeline: spec-creator, implementation-planner, implementer, and plan-verifier agents plus run-plan and workflow-retro skills.",
+      "version": "1.0.0"
     }
   ]
 }
