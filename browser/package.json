@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node ../scripts/build-index.mjs && cp ../site/index.json public/index.json",
     "dev": "vite",
+    "prebuild": "node ../scripts/build-index.mjs",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
