@@ -2,7 +2,7 @@
   "name": "research-tools",
   "displayName": "Research Tools",
   "description": "Read-only research agent for investigating a codebase, the web, or both.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Andrii Bahrii"
   },

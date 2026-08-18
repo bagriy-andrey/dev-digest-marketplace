@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1 — 2026-08-18
+
+- No functional change: test release to verify marketplace auto-update behavior.
+
 ## 1.0.0 — 2026-08-18
 
 - First real release: content ported and generalized from the source SDD workflow.
