@@ -4,7 +4,7 @@ import { SearchBar } from "./components/SearchBar";
 import { ArtifactCard } from "./components/ArtifactCard";
 import { EmptyState } from "./components/EmptyState";
 import { ArtifactDetail } from "./components/ArtifactDetail";
-import { buildIndex } from "./data";
+import { loadIndex } from "./data";
 import { search } from "./search";
 import { buildDetail } from "./detail";
 import { strings } from "./strings";
@@ -36,7 +36,27 @@ function syncUrl(query: string, type: ArtifactType | "all") {
 
 export default function App() {
   const initial = useMemo(readUrlState, []);
-  const index = useMemo(buildIndex, []);
+
+  const [index, setIndex] = useState<SearchableArtifact[]>([]);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+
+  useEffect(() => {
+    let cancelled = false;
+    loadIndex()
+      .then((data) => {
+        if (cancelled) return;
+        setIndex(data);
+        setStatus("ready");
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        console.error(err);
+        setStatus("error");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const [input, setInput] = useState(initial.q);
   const [query, setQueryState] = useState(initial.q);
@@ -113,7 +133,7 @@ export default function App() {
     { label: strings.filters.agent, value: "agent" as const, count: counts.agent },
   ];
 
-  const isEmpty = !detail && results.length === 0;
+  const isEmpty = status === "ready" && !detail && results.length === 0;
   const resultLabel = strings.list.resultLabel(results.length, query);
   const sortLabel = strings.list.sortLabel(Boolean(query));
   const backLabel = cameFrom && cameFrom.q ? strings.detail.backTo(cameFrom.q) : strings.detail.backDefault;
@@ -140,18 +160,30 @@ export default function App() {
             onTypeChange={handleTypeChange}
           />
 
-          <div className="mono list__meta-row">
-            <span>{resultLabel}</span>
-            <span>{sortLabel}</span>
-          </div>
+          {status === "ready" && (
+            <div className="mono list__meta-row">
+              <span>{resultLabel}</span>
+              <span>{sortLabel}</span>
+            </div>
+          )}
+
+          {status === "loading" && <p className="mono list__meta-row">Loading marketplace index…</p>}
+
+          {status === "error" && (
+            <p className="mono list__meta-row">
+              Couldn't load the marketplace index. Run <code>node scripts/build-index.mjs</code> and reload.
+            </p>
+          )}
 
           {isEmpty && <EmptyState query={query} onReset={reset} />}
 
-          <div className="list__grid">
-            {results.map((a) => (
-              <ArtifactCard key={a.id} artifact={a} copied={copiedId === a.id} onOpen={open} onCopy={copy} />
-            ))}
-          </div>
+          {status === "ready" && (
+            <div className="list__grid">
+              {results.map((a) => (
+                <ArtifactCard key={a.id} artifact={a} copied={copiedId === a.id} onOpen={open} onCopy={copy} />
+              ))}
+            </div>
+          )}
         </main>
       )}
 
